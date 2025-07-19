@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+  <!-- Blog Post -->
+  <div class="card mb-4 shadow">
+    <div class="card-body">
+      <h2 class="card-title">{{ post.title }}</h2>
+      <p class="text-muted mb-1">Category: <span class="badge bg-info text-dark">{{ post.category.name }}</span></p>
+      <hr>
+      <p class="card-text">{{ post.content|linebreaks }}</p>
+    </div>
+  </div>
+
+  <!-- Comments -->
+  <div class="card mb-4 shadow-sm">
+    <div class="card-header">
+      <h4 class="mb-0">Comments</h4>
+    </div>
+    <div class="card-body">
+      {% if comments %}
+        {% for comment in comments %}
+          <div class="mb-3 p-3 border rounded">
+            <strong>{{ comment.name }}</strong>
+            <p class="mb-1">{{ comment.body }}</p>
+            <small class="text-muted">{{ comment.created_at|date:"F j, Y, g:i a" }}</small>
+          </div>
+        {% endfor %}
+      {% else %}
+        <p>No comments yet. Be the first to comment!</p>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- Comment Form -->
+  <div class="card shadow-sm">
+    <div class="card-header">
+      <h4 class="mb-0">Leave a Comment</h4>
+    </div>
+    <div class="card-body">
+      <form method="POST">
+        {% csrf_token %}
+        {{ comment_form.as_p }}
+        <button type="submit" class="btn btn-primary">Post Comment</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
