@@ -58,7 +58,7 @@ cd blog-project
 2. **Create and activate a virtual environment**
 python -m venv env
 env\Scripts\activate  # On Windows
-# OR
+OR
 source env/bin/activate  # On Unix/macOS
 
 3. **Install dependencies**
